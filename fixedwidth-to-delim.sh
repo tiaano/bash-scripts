@@ -22,9 +22,16 @@ gunzip -c FILE1.txt.gz | cut --output-delimiter="|" -b 88-95,98,99-107 | gzip >>
 
 # Set headers
 echo "Col1|Col2|Col3" | gzip > NEW_FILE.txt.gz
-gunzip -c FILE1.txt.gz | cut --output-delimiter='"|"' -b 88-95,98,99-107 | sed -e 's/^/"/'| sed 's/$/"/' | gzip >> NEW_FILE.txt.gz
+gunzip -c FILE1.txt.gz | cut --output-delimiter='"|"' -b 88-95,98,99-107 | gzip >> NEW_FILE.txt.gz
 
 # >>> This still need quotes at start end end, possibly
+gunzip -c FILE1.txt.gz | cut --output-delimiter='"|"' -b 88-95,98,99-107 | sed -e 's/^/"/'| sed 's/$/"/' | gzip >> NEW_FILE.txt.gz
+# however the above is realy slow
+
+# this aproach...
 echo "my standard in" | cat <(echo "prefix... ") <(cat -) <(echo " ...suffix")
-prefix... my standard in ...suffix
+# adds only to the start and end of the file
+
+# this works much faster
+gunzip -c FILE1.txt.gz | cut --output-delimiter='"|"' -b 88-95,98,99-107 | awk '{ print "\""$0"\""}' | gzip >> NEW_FILE.txt.gz
 
