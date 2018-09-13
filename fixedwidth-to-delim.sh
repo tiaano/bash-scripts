@@ -16,3 +16,11 @@ cat FILE1.txt | cut --output-delimiter="|" -b 88-95,98,99-107 >> NEW_FILE.txt
 echo "Col1|Col2|Col3" | gzip > NEW_FILE.txt.gz
 gunzip -c FILE1.txt.gz | cut --output-delimiter="|" -b 88-95,98,99-107 | gzip >> NEW_FILE.txt.gz
 
+
+#-------------------------------------------------------------------------
+# To add quote to output file
+
+# Set headers
+echo "Col1|Col2|Col3" | gzip > NEW_FILE.txt.gz
+gunzip -c FILE1.txt.gz | cut --output-delimiter='"|"' -b 88-95,98,99-107 | sed -e 's/^/"/'| sed 's/$/"/' | gzip >> NEW_FILE.txt.gz
+
