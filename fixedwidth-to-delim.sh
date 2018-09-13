@@ -6,5 +6,5 @@
 # Set headers
 echo "Col1|Col2|Col3" > NEW_FILE.txt
 
-# Extract and add data
+# Extract and add data (-b is to extract specific bytes from file, starting with 1)
 cat FILE1.txt | cut --output-delimiter="|" -b 88-95,98,99-107 >> NEW_FILE.txt
