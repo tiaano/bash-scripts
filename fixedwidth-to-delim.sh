@@ -24,3 +24,7 @@ gunzip -c FILE1.txt.gz | cut --output-delimiter="|" -b 88-95,98,99-107 | gzip >>
 echo "Col1|Col2|Col3" | gzip > NEW_FILE.txt.gz
 gunzip -c FILE1.txt.gz | cut --output-delimiter='"|"' -b 88-95,98,99-107 | sed -e 's/^/"/'| sed 's/$/"/' | gzip >> NEW_FILE.txt.gz
 
+# >>> This still need quotes at start end end, possibly
+echo "my standard in" | cat <(echo "prefix... ") <(cat -) <(echo " ...suffix")
+prefix... my standard in ...suffix
+
